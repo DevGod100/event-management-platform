@@ -25,8 +25,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { Checkbox } from "../ui/checkbox";
 import { useUploadThing } from "@/lib/uploadthing";
-import CreateEvent from "@/app/(root)/events/create/page";
 import { useRouter } from "next/navigation";
+import { createEvent } from "@/lib/actions/event.actions";
 
 type EventFormProps = {
   userId: string;
@@ -45,7 +45,6 @@ const EventForm = ({ userId, type }: EventFormProps) => {
     defaultValues: initialValues,
   });
 
-  // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof eventFormSchema>) {
     let uploadedImageUrl = values.imageUrl
 
@@ -61,19 +60,18 @@ const EventForm = ({ userId, type }: EventFormProps) => {
 
     if (type === 'Create') {
       try {
-        // const newEvent =await CreateEvent({
-        //   event: { ...values, imageUrl: uploadedImageUrl},
-        //   userId,
-        //   path: '/profile'
-        // })
+        const newEvent = await createEvent({
+          event: { ...values, imageUrl: uploadedImageUrl},
+          userId,
+          path: '/profile'
+        })
 
-        // if (newEvent) {
-        //   form.reset()
-        //   router.push(`/events/${newEvent._id}`)
-        // }
+        if (newEvent) {
+          form.reset()
+          router.push(`/events/${newEvent._id}`)
+        }
       } catch (error) {
         console.log(error);
-        
       }
     }
   }
@@ -108,7 +106,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <Dropdown />
+                  <Dropdown  onChangeHandler={field.onChange} value={field.value}/>
                 </FormControl>
                 <FormMessage />
               </FormItem>
