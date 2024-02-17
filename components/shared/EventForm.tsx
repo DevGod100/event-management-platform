@@ -25,6 +25,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { Checkbox } from "../ui/checkbox";
 import { useUploadThing } from "@/lib/uploadthing";
+import CreateEvent from "@/app/(root)/events/create/page";
+import { useRouter } from "next/navigation";
 
 type EventFormProps = {
   userId: string;
@@ -35,6 +37,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
   const [files, setFiles] = useState<File[]>([]);
 
   const initialValues = eventDefaultValues;
+  const router = useRouter()
 
   const {startUpload} =  useUploadThing('imageUploader')
   const form = useForm<z.infer<typeof eventFormSchema>>({
@@ -54,6 +57,24 @@ const EventForm = ({ userId, type }: EventFormProps) => {
       }
       
       uploadedImageUrl = uploadedImages[0].url
+    }
+
+    if (type === 'Create') {
+      try {
+        // const newEvent =await CreateEvent({
+        //   event: { ...values, imageUrl: uploadedImageUrl},
+        //   userId,
+        //   path: '/profile'
+        // })
+
+        // if (newEvent) {
+        //   form.reset()
+        //   router.push(`/events/${newEvent._id}`)
+        // }
+      } catch (error) {
+        console.log(error);
+        
+      }
     }
   }
 
