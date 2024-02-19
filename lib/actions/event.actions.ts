@@ -22,18 +22,16 @@ export const createEvent = async ({ event, userId, path }: CreateEventParams) =>
     if (!organizer) {
       throw new Error("NO user (organizer) found to connect this event too..");
     }
-
-    console.log({
-      categoryId: event.categoryId,
-      organizer: userId
-    });
-    
-
+    // console.log({
+    //   categoryId: event.categoryId,
+    //   organizer: userId
+    // });
     const newEvent = await Event.create({ ...event, category: event.categoryId, organizer:userId })
 
     return JSON.parse(JSON.stringify(newEvent))
+
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     handleError(error);
   }
 };
@@ -41,9 +39,9 @@ export const createEvent = async ({ event, userId, path }: CreateEventParams) =>
 export const getEventById = async (eventId: string) => {
   try {
     await connectToDatabase()
-    const event = populateEvent(Event.findById(eventId))
+    const event = await populateEvent(Event.findById(eventId)) // ! was missing "await"
 
-    if(!eventId) {
+    if(!event) { // ! was testing if eventId...
       throw new Error("No such eventId exists")
     }
 
