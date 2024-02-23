@@ -12,7 +12,6 @@ type CardProps = {
     hidePrice?: boolean
   }
   
-  
 
 const Card = ({event, hasOrderLink, hidePrice}: CardProps) => {
   const {sessionClaims} = auth()
