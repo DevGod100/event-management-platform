@@ -11,7 +11,6 @@ type CardProps = {
     hasOrderLink?: boolean,
     hidePrice?: boolean
   }
-  
 
   
 const Card = ({event, hasOrderLink, hidePrice}: CardProps) => {
