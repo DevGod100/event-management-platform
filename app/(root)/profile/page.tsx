@@ -37,6 +37,7 @@ const page = async () => {
         totalPages={orders?.totalPages}
       />
     </section>
+    
 
     {/* Events Organized */}
     <section className="bg-primary-50 bg-dotted-pattern bg-cover bg-center py-5 md:py-10">
