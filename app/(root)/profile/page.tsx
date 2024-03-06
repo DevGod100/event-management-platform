@@ -26,7 +26,7 @@ const page = async () => {
     </section>
 
     <section className="wrapper my-8">
-      <Collection 
+      {/* <Collection 
         data={orderedEvents}
         emptyTitle="No event tickets purchased yet"
         emptyStateSubtext="No worries - plenty of exciting events to explore!"
@@ -35,7 +35,7 @@ const page = async () => {
         page={ordersPage}
         urlParamName="ordersPage"
         totalPages={orders?.totalPages}
-      />
+      /> */}
     </section>
     
 
@@ -58,7 +58,7 @@ const page = async () => {
         emptyStateSubtext="Go create some now"
         collectionType="Events_Organized"
         limit={3}
-        page={eventsPage}
+        page={1}
         urlParamName="eventsPage"
         totalPages={organizedEvents?.totalPages}
       />
